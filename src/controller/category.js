@@ -43,7 +43,7 @@ module.exports.createCategory = async (req, res, next) => {
   try {
     const existParentCategory = await Category.findById(category.parentId);
     if (category.parentId) {
-      if (!existParentCategory) throw Error(`Цэс ${errorMsg.notfound}`);
+      if (!existParentCategory) throw new Error(`Цэс ${errorMsg.notfound}`);
     }
 
     const newCategory = await Category.create(
