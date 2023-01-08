@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
 
 module.exports.protect = async (req, res, next) => {
-  if (!req.headers.authorization) {
+  if (!req.cookies[token]) {
     throw new Error("Эхлээд нэвтэрнэ үү.");
   }
 
-  const token = req.headers.authorization.split(" ")[1];
+  const token = req.cookies[token];
 
   if (!token) {
     throw new Error("Эхлээд нэвтэрнэ үү.");

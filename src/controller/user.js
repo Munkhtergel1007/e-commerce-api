@@ -5,7 +5,11 @@ module.exports.register = async (req, res, next) => {
 
   const token = user.getJsonWebToken();
 
-  res.status(200).json({
+  const cookieOption = {
+    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+  };
+
+  res.status(200).cookie("token", token, cookieOption).json({
     success: true,
     token,
     data: user,
@@ -35,9 +39,15 @@ module.exports.login = async (req, res, next) => {
       throw new Error("И-мэйл эсвэл нууц үг буруу байна.");
     }
 
-    res.status(200).json({
+    const token = user.getJsonWebToken();
+
+    const cookieOption = {
+      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    };
+
+    res.status(200).cookie("token", token, cookieOption).json({
       success: true,
-      token: user.getJsonWebToken(),
+      token,
     });
   } catch (err) {
     next(err);

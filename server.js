@@ -4,27 +4,39 @@ const logger = require("./src/middleware/logger");
 const morgan = require("morgan");
 const bp = require("body-parser");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 dotenv.config({ path: "./config/config.env" });
 
 const connectDB = require("./config/db");
 connectDB();
 
+var whiteList = ["http://localhost:3000"];
+
 const corsOpts = {
-  origin: "*",
-
-  methods: ["GET", "POST"],
-
-  allowedHeaders: ["Content-Type"],
+  origin: function (origin, callback) {
+    if (origin === undefined || whiteList.indexOf(origin) !== -1) {
+      // Энэ домайн нь зөвшөөрөгдсөн
+      callback(null, true);
+    } else {
+      // Энэ домайн нь зөвшөөрөгдөөгүй
+      callback(new Error("Хориглож байна."));
+    }
+  },
+  methods: "*",
+  allowedHeaders: ["Authorization", "Set-Cookie"],
+  credentials: true,
 };
 
 const app = express();
+
 app.use(cors(corsOpts));
 
 const route = require("./src/routes/route");
 const errorHandler = require("./src/middleware/error");
 
 // Body parser
+app.use(cookieParser());
 app.use(express.json());
 app.use(logger);
 app.use(morgan("dev"));
