@@ -54,6 +54,19 @@ module.exports.login = async (req, res, next) => {
   }
 };
 
+module.exports.getOneUser = async (req, res, next) => {
+  let query = req.body
+  try {
+    const existData = await User.findOne(query)
+    res.status(200).json({
+      success: true,
+      data: existData,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports.checkAuth = async (req, res, next) => {
   if (!req.headers.authorization) {
     throw new Error("token bhku bno1");
