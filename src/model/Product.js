@@ -33,7 +33,6 @@ const ProductSchema = new mongoose.Schema({
 	},
 	color: { type: String },
 	material: { type: String },
-	checked: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model("Product", ProductSchema);

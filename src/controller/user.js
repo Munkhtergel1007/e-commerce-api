@@ -67,6 +67,18 @@ module.exports.getOneUser = async (req, res, next) => {
 	}
 };
 
+module.exports.getAllUsers = async (req, res, next) => {
+	try {
+		const existData = await User.find({ type: { $ne: "admin" } });
+		res.status(200).json({
+			success: true,
+			data: existData,
+		});
+	} catch (err) {
+		next(err);
+	}
+};
+
 module.exports.checkAuth = async (req, res, next) => {
 	if (!req.headers.authorization) {
 		throw new Error("token bhku bno1");
