@@ -13,19 +13,26 @@ const ProductSchema = new mongoose.Schema({
     default: "no-photo.jpg",
   },
   price: {
-    type: String,
+    type: Number,
     required: [true, "Please enter price"],
   },
-  category: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
-    },
-  ],
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+  },
+  department: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Department",
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  description: {
+    type: String,
+  },
+  color: { type: String },
+  material: { type: String },
 });
 
 module.exports = mongoose.model("Product", ProductSchema);
