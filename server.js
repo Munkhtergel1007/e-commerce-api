@@ -24,7 +24,7 @@ const corsOpts = {
     }
   },
   methods: "*",
-  allowedHeaders: ["Authorization", "Set-Cookie"],
+  allowedHeaders: ["Authorization", "Set-Cookie", "Content-Type"],
   credentials: true,
 };
 
