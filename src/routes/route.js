@@ -1,35 +1,37 @@
 const express = require("express");
 const {
-	createCategory,
-	getCategories,
-	getOneCategory,
-	updateCategory,
-	deleteCategory,
+  createCategory,
+  getCategories,
+  getOneCategory,
+  updateCategory,
+  deleteCategory,
 } = require("../controller/category");
 const {
-	getDeparments,
-	createDepartment,
-	getOneDepartment,
-	updateDepartment,
-	deleteDepartment,
+  getDeparments,
+  createDepartment,
+  getOneDepartment,
+  updateDepartment,
+  deleteDepartment,
 } = require("../controller/department");
 const {
-	createProduct,
-	getProducts,
-	getOneProducts,
-	getAllProducts,
+  createProduct,
+  getProducts,
+  getOneProducts,
+  getAllProducts,
+  updateProduct,
+  deleteProduct,
 } = require("../controller/product");
 const {
-	register,
-	login,
-	checkAuth,
-	getOneUser,
-	getAllUsers,
+  register,
+  login,
+  checkAuth,
+  getOneUser,
+  getAllUsers,
 } = require("../controller/user");
 const {
-	createWishList,
-	deleteWishList,
-	getWishList,
+  createWishList,
+  deleteWishList,
+  getWishList,
 } = require("../controller/wishList");
 const { protect } = require("../middleware/protect");
 
@@ -45,6 +47,8 @@ router.route("/product").post(getProducts);
 router.route("/getAllProducts").get(protect, getAllProducts);
 router.route("/addProduct").post(protect, createProduct);
 router.route("/getOneProduct").post(getOneProducts);
+router.route("/updateProduct").post(protect, updateProduct);
+router.route("/deleteProduct").post(protect, deleteProduct);
 
 router.route("/department").get(getDeparments);
 router.route("/department").post(createDepartment);
